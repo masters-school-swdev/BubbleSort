@@ -33,7 +33,24 @@ public class BubbleSort {
      * @return sorted array
      */
     public double[] sort() {
+	for (int outer = this.nElems-1; outer >= 0; outer--) {
+		Log.trace(">> outer=%d arr=%s", outer, this);
+		for (int inner = 0; inner <= outer; inner++) {
+		    Log.trace("\tcomparing %.0f to %.0f", this.arr[inner], this.arr[inner+1]);
+			if (this.arr[inner] > this.arr[inner+1]) {
+			    Log.trace("\tswapping %.0f with %.0f", this.arr[inner], this.arr[inner+1]);
+				swap(this.arr, inner, inner+1);
+			}
+		}
+		Log.trace("<< outer=%d arr=%s", outer, this);
+	}
 	return arr;
+    }
+    
+    private static final void swap(double[] arr, int a, int b) {
+	double tmp = arr[a];
+	arr[a] = arr[b];
+	arr[b] = tmp;
     }
     
     /**
@@ -60,6 +77,8 @@ public class BubbleSort {
 	bubbleSort.add(2);
 	bubbleSort.add(1);
 
+	Log.isTraceEnabled = true;
+	
 	Log.info("@start %s", bubbleSort);
 
 	bubbleSort.sort();
